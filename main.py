@@ -19,6 +19,7 @@ port = cred['port']
 user = '%(user)s' % cred
 passwd = '%(pass)s' % cred
 db = '%(db)s' % cred
+table = '%(table)s' % cred
 
 conn = pymysql.connect(host=ip, port=port, user=user, passwd=passwd, db=db)
 cur = conn.cursor()
@@ -56,7 +57,7 @@ while True:
             value = str(randint(0,1))
         key = str(sensor['sys'])+str(sensor['id'])
         date = str(time.strftime('%Y-%m-%d %H:%M:%S'))
-        sqlquery = "INSERT INTO test1.test2 (id,timestamp,value,name) VALUES (1,'"+date+"',"+value+",'"+key+"')"
+        sqlquery = "INSERT INTO "+db+"."+table+" (id,timestamp,value,name) VALUES (1,'"+date+"',"+value+",'"+key+"')"
         cur.execute(sqlquery)
         conn.commit()
     sleep(1)
